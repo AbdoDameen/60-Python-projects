@@ -1,25 +1,52 @@
-def check_guess(guess, answer):
-    global score
-    still_guessing=True
-    attempt=0
-    while still_guessing and attempt <3:
-        if guess.lower()==answer.lower():
-            print("Correct Answer")
-            score=score+1
-            still_guessing=False
-        else:
-            if attempt<2:
-                guess=input("Sorry Wrong Answer, try again")
-            attempt=attempt+1
-    if attempt == 3:
-        print("The Correct answer is ",answer )
+def check_guess(guess: str, answer: str) -> bool:
+    """
+    Check the user's guess against the correct answer.
+    Gives up to 2 retries on wrong answers.
 
-score=0
-print("Guess the Animal")
-guess1=input("which bear lives at the North Pole? ")
-check_guess(guess1, "Polar Bear")
-guess2=input("What is the Fastest Land Animal? ")
-check_guess(guess2, "Cheetah")
-guess3=input("What is the Largest Animal? ")
-check_guess(guess3, "Blue Whale")
-print("Your Score is "+str(score))
+    Args:
+        guess: The player's initial guess.
+        answer: The correct answer.
+
+    Returns:
+        True if the player got it right, False otherwise.
+    """
+    global score
+    attempts = 0
+    max_attempts = 3
+
+    while attempts < max_attempts:
+        if guess.lower() == answer.lower():
+            print("Correct Answer")
+            score += 1
+            return True
+        else:
+            attempts += 1
+            if attempts < max_attempts:
+                guess = input("Sorry, wrong answer. Try again: ")
+            else:
+                print(f"The correct answer is {answer}")
+
+    return False
+
+
+def main():
+    """Run a simple animal guessing quiz game."""
+    global score
+    score = 0
+
+    print("Guess the Animal")
+
+    guess1 = input("Which bear lives at the North Pole? ")
+    check_guess(guess1, "Polar Bear")
+
+    guess2 = input("What is the fastest land animal? ")
+    check_guess(guess2, "Cheetah")
+
+    guess3 = input("What is the largest animal? ")
+    check_guess(guess3, "Blue Whale")
+
+    print(f"Your score is {score}")
+
+
+if __name__ == '__main__':
+    main()

@@ -1,48 +1,122 @@
+"""A simple music player with Play, Stop, Pause, and Unpause controls."""
+
+import os
 import pygame
 import tkinter as tkr
 from tkinter.filedialog import askdirectory
-import os
 
 
-music_player = tkr.TK()
-music_player.title("My Muisc Player")
-music_player.geometry("450x350")
-directory=askdirectory()
-os.chdir(directory)
-song_list=os.listdir()
+def build_player() -> None:
+    """Create and run the music player GUI."""
+    music_player = tkr.Tk()
+    music_player.title("My Music Player")
+    music_player.geometry("450x350")
 
-play_list=tkr.Listbox(music_player, font="Helvetica 12 bold", bg='yellow', selectmode=tkr.SINGLE)
+    # Ask the user to select a music directory
+    directory = askdirectory()
+    if not directory:
+        print("No directory selected. Exiting.")
+        return
 
-for item in song_list:
-    pos=0
-    play_list.insert(pos, item)
-    pos+=1
-pygame.init()
-pygame.mixer.init()
+    os.chdir(directory)
+    song_list = os.listdir()
 
-def play():
-    pygame.mixer.music.load(play_list.get(tkr.ACTIVE))
-    var.set(play_list.get(tkr.ACTIVE))
-    pygame.mixer.music.play()
-def stop():
-    pygame.mixer.music.stop()
-def pause():
-    pygame.mixer.music.pause()
-def unpause():
-    pygame.mixer.music.unpause()
+    # Create the playlist listbox
+    play_list = tkr.Listbox(
+        music_player,
+        font="Helvetica 12 bold",
+        bg="yellow",
+        selectmode=tkr.SINGLE,
+    )
 
-Button1=tkr.Button(music_player, width=5, height=3, font="Helvetica 12 bold", text="PLAY", command=play, bg="blue", fg="white")
-Button1=tkr.Button(music_player, width=5, height=3, font="Helvetica 12 bold", text="STOP", command=stop, bg="red", fg="white")
-Button1=tkr.Button(music_player, width=5, height=3, font="Helvetica 12 bold", text="PAUSE", command=pause, bg="purple", fg="white")
-Button1=tkr.Button(music_player, width=5, height=3, font="Helvetica 12 bold", text="UNPAUSE", command=unpause, bg="orange", fg="white")
+    for i, item in enumerate(song_list):
+        play_list.insert(i, item)
 
-var=tkr.StringVar()
-song_title=tkr.Label(music_player, font="Helvetica 12 bold", textvariable=var)
+    # Initialize the pygame mixer
+    pygame.init()
+    pygame.mixer.init()
 
-song_title.pack()
-Button1.pack(fill="x")
-Button2.pack(fill="x")
-Button3.pack(fill="x")
-Button4.pack(fill="x")
-play_list.pack(fill="both", expand="yes")
-music_player.mainloop()
+    # Track the current song title
+    current_song = tkr.StringVar()
+
+    def play() -> None:
+        """Load and play the selected song."""
+        selected_song = play_list.get(tkr.ACTIVE)
+        pygame.mixer.music.load(selected_song)
+        current_song.set(selected_song)
+        pygame.mixer.music.play()
+
+    def stop() -> None:
+        """Stop playback."""
+        pygame.mixer.music.stop()
+
+    def pause() -> None:
+        """Pause playback."""
+        pygame.mixer.music.pause()
+
+    def unpause() -> None:
+        """Resume playback after pause."""
+        pygame.mixer.music.unpause()
+
+    # Create control buttons with distinct names
+    play_button = tkr.Button(
+        music_player,
+        width=5,
+        height=3,
+        font="Helvetica 12 bold",
+        text="PLAY",
+        command=play,
+        bg="blue",
+        fg="white",
+    )
+    stop_button = tkr.Button(
+        music_player,
+        width=5,
+        height=3,
+        font="Helvetica 12 bold",
+        text="STOP",
+        command=stop,
+        bg="red",
+        fg="white",
+    )
+    pause_button = tkr.Button(
+        music_player,
+        width=5,
+        height=3,
+        font="Helvetica 12 bold",
+        text="PAUSE",
+        command=pause,
+        bg="purple",
+        fg="white",
+    )
+    unpause_button = tkr.Button(
+        music_player,
+        width=5,
+        height=3,
+        font="Helvetica 12 bold",
+        text="UNPAUSE",
+        command=unpause,
+        bg="orange",
+        fg="white",
+    )
+
+    # Song title label
+    song_title = tkr.Label(
+        music_player,
+        font="Helvetica 12 bold",
+        textvariable=current_song,
+    )
+
+    # Layout the widgets
+    song_title.pack()
+    play_button.pack(fill="x")
+    stop_button.pack(fill="x")
+    pause_button.pack(fill="x")
+    unpause_button.pack(fill="x")
+    play_list.pack(fill="both", expand=True)
+
+    music_player.mainloop()
+
+
+if __name__ == "__main__":
+    build_player()

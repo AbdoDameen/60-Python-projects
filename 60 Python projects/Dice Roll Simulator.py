@@ -1,15 +1,19 @@
+"""Simulate rolling a pair of dice."""
+
 import random
-min_val=1
-max_val=6
 
-roll_again="yes"
+MIN_VALUE = 1
+MAX_VALUE = 6
 
-while roll_again=="yes" or roll_again[0].lower()=="y":
-    print("Rolling the Dices...")
-    print("The Values are :")
+roll_again = "yes"
 
-    print(random.randint(min_val, max_val))
+while roll_again == "yes" or (roll_again and roll_again[0].lower() == "y"):
+    print("Rolling the dice...")
+    print("The values are:")
+    print(random.randint(MIN_VALUE, MAX_VALUE))
+    print(random.randint(MIN_VALUE, MAX_VALUE))
 
-    print(random.randint(min_val, max_val))
+    roll_again = input("Roll the dice again? (yes/no) ")
 
-    roll_again=input("Roll the Dices Agian?")
+if __name__ == '__main__':
+    pass
