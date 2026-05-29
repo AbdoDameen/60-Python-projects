@@ -1,10 +1,10 @@
 # 60 Python Projects
 
-A collection of 60 beginner-to-intermediate Python projects with source code. Originally based on Aman Kharwal's projects — all 39 Python scripts have been reviewed, debugged, and improved.
+A collection of 60 beginner-to-intermediate Python projects with source code. Originally based on Aman Kharwal's projects 
 
 ## What's Inside
 
-39 Python projects covering:
+Python projects covering:
 
 **GUI Apps (tkinter)**
 Calendar, Digital Clock, Music Player, Tic Tac Toe
@@ -27,15 +27,6 @@ Alarm Clock, BMI Calculator, Convert Fahrenheit to Celsius, Convert Roman Numera
 **Other**
 Colored Text (colorama), Creating Graphics
 
-## Improvements Made
-
-Every script was reviewed and upgraded:
-
-- **Bug fixes**: 13 critical runtime bugs fixed (typos, NameError, wrong API calls, deprecated functions, logic errors)
-- **Modernised**: f-strings, type hints, snake_case, main guards, docstrings
-- **Error handling**: input validation, file existence checks, try/except blocks
-- **Refactored**: Turtle Graphics 2 (12 redundant functions → parameterised loop), Music Player (button wiring), Extract Text (complete rewrite), Game of Life (proper class)
-- **Removed**: dead code, unused imports, commented-out debug blocks
 
 ## Quick Start
 
@@ -76,4 +67,4 @@ pip install opencv-python pyzbar pygame pillow textblob pytrends
 
 ## Author
 
-**AbdoDameen** — AI Engineer, data pipelines, and the occasional Python project.
+**AbdoDameen Dameen** 
